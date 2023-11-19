@@ -5,8 +5,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dpdp-lab-1</module>
         <module>dpdp-lab-application</module>
+        <module>dpdp-lab-1</module>
+        <module>dpdp-lab-2</module>
     </modules>
 
     <parent>
