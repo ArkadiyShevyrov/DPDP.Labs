@@ -16,14 +16,70 @@
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://invesdwin.de/repo/invesdwin-oss/</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>mpj</groupId>
+            <groupId>org.mpjexpress</groupId>
             <artifactId>mpj</artifactId>
             <version>0.44</version>
-            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version> <!-- Use the latest version available -->
+        </dependency>
+
     </dependencies>
 
+    <properties>
+        <mpjHome>${env.MPJ_HOME}</mpjHome>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>runtime.starter.MPJRun</mainClass>
+                    <arguments>
+                        <argument>-np</argument>
+                        <argument>2</argument>
+                        <argument>${mainClassName}</argument>
+                        <argument>-cp</argument>
+                        <argument>${mpjClasspath}</argument>
+                        <argument>-Djava.library.path=${mpjHome}/lib</argument>
+                    </arguments>
+                    <classpathScope>runtime</classpathScope>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
